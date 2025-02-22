@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script and Audio Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Generate Script and Audio</h1>
+        <form action="/generate" method="post" id="generate-form">
+            <label for="api_key">OpenAI API Key:</label>
+            <input type="text" id="api_key" name="api_key" required>
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" required>
+            <button type="submit">Generate</button>
+        </form>
+        <div id="loading-bar" class="loading-bar"></div>
+        {% if error %}
+            <div class="error-message">
+                {{ error }}
+            </div>
+        {% endif %}
+    </div>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+</html>
