@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script and Audio Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Generated Script</h1>
+        <p id="script">{{ script }}</p>
+        <button onclick="copyText('script')">Copy Script</button>
+        
+        <h2>Suggestions</h2>
+        <p id="suggestions">{{ suggestions }}</p>
+        <button onclick="copyText('suggestions')">Copy Suggestions</button>
+
+        {% if improvement %}
+            <h2>Improvement</h2>
+            <form action="/improve" method="post">
+                <input type="hidden" name="api_key" value="{{ api_key }}">
+                <input type="hidden" name="script" value="{{ script }}">
+                <label for="improvement">Your Feedback:</label>
+                <textarea id="improvement" name="improvement" required></textarea>
+                <button type="submit">Improve Script</button>
+            </form>
+        {% else %}
+            <h2>Approve Script</h2>
+            <form action="/generate_audio" method="post">
+                <input type="hidden" name="script" value="{{ script }}">
+                <button type="submit">Generate Audio</button>
+            </form>
+            <h2>Improve Script</h2>
+            <form action="/improve" method="post">
+                <input type="hidden" name="api_key" value="{{ api_key }}">
+                <input type="hidden" name="script" value="{{ script }}">
+                <label for="improvement">Your Feedback:</label>
+                <textarea id="improvement" name="improvement" required></textarea>
+                <button type="submit">Improve Script</button>
+            </form>
+        {% endif %}
+        <button class="home" onclick="window.location.href='/'">Home</button>
+        <div id="loading-bar" class="loading-bar"></div>
+    </div>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+</html>
